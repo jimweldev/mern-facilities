@@ -7,13 +7,11 @@ import Loading from '../components/Loading'
 
 const AuthLayout = () => {
   return (
-    <>
-      <h1>AuthLayout</h1>
-
+    <div className="container px-3 py-5">
       <Suspense fallback={<Loading />}>
         <Outlet />
       </Suspense>
-    </>
+    </div>
   )
 }
 

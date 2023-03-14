@@ -1,0 +1,28 @@
+.sidebar-item .sidebar-link.active:hover,
+.sidebar-item > .sidebar-link.active {
+  background: linear-gradient(
+    90deg,
+    rgba(59, 125, 221, 0.1),
+    rgba(59, 125, 221, 0.088) 50%,
+    transparent
+  );
+  border-left-color: #3b7ddd;
+  color: #e9ecef;
+}
+.sidebar-item .sidebar-link.active:hover i,
+.sidebar-item .sidebar-link.active:hover svg,
+.sidebar-item > .sidebar-link.active i,
+.sidebar-item > .sidebar-link.active svg {
+  color: #e9ecef;
+}
+.sidebar-brand {
+  color: #f8f9fa;
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 1.15rem 1.5rem;
+}
+
+.sidebar-link svg {
+  font-size: 18px;
+}

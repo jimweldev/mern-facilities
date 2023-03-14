@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 
 // require routes
 const authRoutes = require('./routes/authRoute.js')
+const userRoutes = require('./routes/userRoute.js')
 
 // express app
 const app = express()
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/auth/', authRoutes)
+app.use('/api/users/', userRoutes)
 
 // connect to db
 const PORT = process.env.PORT || 4000
@@ -80,6 +82,19 @@ mongoose
       }
 
       // socket functions
+      socket.on('broadcastNotification', () => {
+        socket.broadcast.emit('receiveBroadcastNotifications', 'notify')
+      })
+
+      socket.on('joinMyNotification', (userId) => {
+        socket.join(userId)
+      })
+
+      socket.on('sendNotification', (userId) => {
+        io.to(userId).emit('receiveMyNotifications', 'notify')
+      })
+
+      // auth functions
       socket.on('login', (userId) => {
         login(userId)
       })

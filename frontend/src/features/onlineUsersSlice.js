@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const onlineUsersSlice = createSlice({
   name: 'onlineUsers',
   initialState: {
-    value: null,
+    value: [],
   },
   reducers: {
     SET_ONLINE_USERS: (state, action) => {

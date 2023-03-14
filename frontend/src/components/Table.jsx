@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // libraries
 import ReactPaginate from 'react-paginate'

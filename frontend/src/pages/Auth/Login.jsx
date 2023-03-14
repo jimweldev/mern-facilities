@@ -45,70 +45,72 @@ const Login = () => {
   })
 
   return (
-    <div className="container">
-      <form className="card" onSubmit={formik.handleSubmit}>
-        <div className="card-body">
-          <h3>Login</h3>
+    <form
+      className="card mx-auto"
+      onSubmit={formik.handleSubmit}
+      style={{ maxWidth: '420px' }}
+    >
+      <div className="card-body">
+        <h3>Login</h3>
 
-          <div className={`alert alert-danger ${!loginError && 'd-none'}`}>
-            {loginError}
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="emailAddress">Email Address</label>
-            <input
-              className={`form-control form-control-lg ${
-                formik.errors.emailAddress &&
-                formik.touched.emailAddress &&
-                'invalid'
-              }`}
-              id="emailAddress"
-              type="text"
-              {...formik.getFieldProps('emailAddress')}
-            />
-            {formik.errors.emailAddress && formik.touched.emailAddress && (
-              <div className="form-text text-danger">
-                {formik.errors.emailAddress}
-              </div>
-            )}
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="password">Password</label>
-            <input
-              className={`form-control form-control-lg ${
-                formik.errors.password && formik.touched.password && 'invalid'
-              }`}
-              id="password"
-              type="password"
-              {...formik.getFieldProps('password')}
-            />
-            {formik.errors.password && formik.touched.password && (
-              <div className="form-text text-danger">
-                {formik.errors.password}
-              </div>
-            )}
-          </div>
-
-          <div className="text-center">
-            <button
-              className="btn btn-lg btn-dark"
-              type="submit"
-              disabled={isLoginLoading}
-            >
-              {isLoginLoading ? (
-                <>
-                  <span className="spinner-grow spinner-grow-sm me-2"></span>
-                  Loading...
-                </>
-              ) : (
-                <>Submit</>
-              )}
-            </button>
-          </div>
+        <div className={`alert alert-danger ${!loginError && 'd-none'}`}>
+          {loginError}
         </div>
-      </form>
-    </div>
+
+        <div className="mb-3">
+          <label htmlFor="emailAddress">Email Address</label>
+          <input
+            className={`form-control form-control-lg ${
+              formik.errors.emailAddress &&
+              formik.touched.emailAddress &&
+              'invalid'
+            }`}
+            id="emailAddress"
+            type="text"
+            {...formik.getFieldProps('emailAddress')}
+          />
+          {formik.errors.emailAddress && formik.touched.emailAddress && (
+            <div className="form-text text-danger">
+              {formik.errors.emailAddress}
+            </div>
+          )}
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="password">Password</label>
+          <input
+            className={`form-control form-control-lg ${
+              formik.errors.password && formik.touched.password && 'invalid'
+            }`}
+            id="password"
+            type="password"
+            {...formik.getFieldProps('password')}
+          />
+          {formik.errors.password && formik.touched.password && (
+            <div className="form-text text-danger">
+              {formik.errors.password}
+            </div>
+          )}
+        </div>
+
+        <div className="text-center">
+          <button
+            className="btn btn-lg btn-dark"
+            type="submit"
+            disabled={isLoginLoading}
+          >
+            {isLoginLoading ? (
+              <>
+                <span className="spinner-grow spinner-grow-sm me-2"></span>
+                Loading...
+              </>
+            ) : (
+              <>Submit</>
+            )}
+          </button>
+        </div>
+      </div>
+    </form>
   )
 }
 

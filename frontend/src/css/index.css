@@ -1,0 +1,36 @@
+/* FORM */
+.form-control.invalid {
+  border-color: #dc3545;
+}
+
+.form-control.invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+/* DROPDOWN */
+.dropdown-menu {
+  margin: 0 !important;
+}
+
+/* OBJECT FIT */
+.object-fit-cover {
+  object-fit: cover;
+}
+
+/* TH */
+.table th {
+  cursor: pointer;
+}
+.table th .sort {
+  transition: all 200ms ease-in-out;
+}
+
+.table th .rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* PAGINATION */
+.pagination .page-link {
+  text-decoration: none;
+}

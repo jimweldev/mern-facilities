@@ -26,7 +26,7 @@ axios.defaults.withCredentials = true
 
 const App = () => {
   const dispatch = useDispatch()
-  const authUser = useSelector((state) => state.authUser.value) || null
+  const authUser = useSelector((state) => state.authUser.value)
 
   axios.interceptors.response.use(
     (response) => {
