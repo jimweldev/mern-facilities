@@ -33,14 +33,13 @@ import {
 // variables
 import Avatar from '../assets/ayaka.jpg'
 
-const UserTemplate = () => {
+const PrivateLayout = () => {
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.authUser.value)
 
   // socket
   useEffect(() => {
     socket.emit('login', authUser.user._id)
-    socket.emit('joinMyNotification', authUser.user._id)
   }, [])
 
   useEffect(() => {
@@ -48,25 +47,22 @@ const UserTemplate = () => {
       dispatch(SET_ONLINE_USERS(onlineUsers))
     }
 
-    const onReceiveMyNotifications = (notifications) => {
-      console.log(notifications)
+    const onReceiveNotification = (notification) => {
+      console.log(notification)
     }
 
-    const onReceiveBroadcastNotifications = (notifications) => {
-      console.log(notifications)
+    const onReceiveAnnouncement = (notification) => {
+      console.log(notification)
     }
 
     socket.on('getOnlineUsers', onGetOnlineUsers)
-    socket.on('receiveMyNotifications', onReceiveMyNotifications)
-    socket.on('receiveBroadcastNotifications', onReceiveBroadcastNotifications)
+    socket.on('receiveNotification', onReceiveNotification)
+    socket.on('receiveAnnouncement', onReceiveAnnouncement)
 
     return () => {
       socket.off('getOnlineUsers', onGetOnlineUsers)
-      socket.off('receiveMyNotifications', onReceiveMyNotifications)
-      socket.off(
-        'receiveBroadcastNotifications',
-        onReceiveBroadcastNotifications
-      )
+      socket.off('receiveNotification', onReceiveNotification)
+      socket.off('receiveAnnouncement', onReceiveAnnouncement)
     }
   }, [socket])
 
@@ -285,4 +281,4 @@ const UserTemplate = () => {
   )
 }
 
-export default UserTemplate
+export default PrivateLayout

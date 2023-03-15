@@ -19,24 +19,12 @@ import { socket } from '../../services/socket'
 const Home = () => {
   const onlineUsers = useSelector((state) => state.onlineUsers.value)
 
-  // useEffect(() => {
-  //   const onGetMyNotifications = (notifications) => {
-  //     console.log(notifications)
-  //   }
-
-  //   socket.on('getMyNotifications', onGetMyNotifications)
-
-  //   return () => {
-  //     socket.off('getMyNotifications', onGetMyNotifications)
-  //   }
-  // }, [socket])
-
-  const handleSendNotification = (userId) => {
-    socket.emit('sendNotification', userId)
+  const handleSendNotification = (userId, notification) => {
+    socket.emit('sendNotification', userId, notification)
   }
 
-  const handleBroadcastNotification = () => {
-    socket.emit('broadcastNotification')
+  const handleSendAnnouncement = (announcement) => {
+    socket.emit('sendAnnouncement', announcement)
   }
 
   const [search, setSearch] = useState('')
@@ -76,10 +64,10 @@ const Home = () => {
         <button
           className="btn btn-primary"
           onClick={() => {
-            handleBroadcastNotification()
+            handleSendAnnouncement('Announcement! Hello everyone!')
           }}
         >
-          Notify All
+          Announcement
         </button>
       </div>
 
@@ -136,7 +124,7 @@ const Home = () => {
                         <button
                           className="btn btn-primary btn-sm"
                           onClick={() => {
-                            handleSendNotification(user._id)
+                            handleSendNotification(user._id, 'Notification')
                           }}
                         >
                           Notify

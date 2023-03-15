@@ -5,12 +5,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 
 // layouts
-import AuthLayout from './layouts/AuthLayout'
-import HomeLayout from './layouts/HomeLayout'
+import PublicLayout from './layouts/PublicLayout'
+import PrivateLayout from './layouts/PrivateLayout'
 
 // routes
-import AuthRoute from './routes/AuthRoute'
-import HomeRoute from './routes/HomeRoute'
+import PublicRoute from './routes/PublicRoute'
+import PrivateRoute from './routes/PrivateRoute'
 
 // auth pages
 const Login = lazy(() => import('./pages/Auth/Login'))
@@ -69,14 +69,14 @@ const App = () => {
 
   return (
     <Routes>
-      <Route element={<AuthRoute authUser={authUser} />}>
-        <Route element={<AuthLayout />}>
+      <Route element={<PublicRoute authUser={authUser} />}>
+        <Route element={<PublicLayout />}>
           <Route path="/login" element={<Login />} />
         </Route>
       </Route>
 
-      <Route element={<HomeRoute authUser={authUser} />}>
-        <Route element={<HomeLayout />}>
+      <Route element={<PrivateRoute authUser={authUser} />}>
+        <Route element={<PrivateLayout />}>
           <Route path="/" element={<Home />} />
         </Route>
       </Route>

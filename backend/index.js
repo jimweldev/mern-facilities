@@ -6,13 +6,13 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 
 // require routes
-const authRoutes = require('./routes/authRoute.js')
-const userRoutes = require('./routes/userRoute.js')
+const authRoute = require('./routes/authRoute.js')
+const userRoute = require('./routes/userRoute.js')
 
 // express app
 const app = express()
 
-// middleware
+// middlewares
 app.use(
   cors({
     credentials: true,
@@ -28,8 +28,8 @@ app.use((req, res, next) => {
 })
 
 // routes
-app.use('/api/auth/', authRoutes)
-app.use('/api/users/', userRoutes)
+app.use('/api/auth/', authRoute)
+app.use('/api/users/', userRoute)
 
 // connect to db
 const PORT = process.env.PORT || 4000
@@ -52,14 +52,6 @@ mongoose
     let onlineUsers = []
 
     io.on('connection', (socket) => {
-      // backend
-      // emit => send to frontend
-      // on => receive from frontend
-
-      // frontend
-      // emit => send to backend
-      // on => receive from backend
-
       // global functions
       const login = (userId) => {
         const isOnline = onlineUsers.some((onlineUser) => {
@@ -71,6 +63,8 @@ mongoose
 
           io.emit('getOnlineUsers', onlineUsers)
         }
+
+        socket.join(userId)
       }
 
       const logout = () => {
@@ -82,16 +76,12 @@ mongoose
       }
 
       // socket functions
-      socket.on('broadcastNotification', () => {
-        socket.broadcast.emit('receiveBroadcastNotifications', 'notify')
+      socket.on('sendAnnouncement', (announcement) => {
+        socket.broadcast.emit('receiveAnnouncement', announcement)
       })
 
-      socket.on('joinMyNotification', (userId) => {
-        socket.join(userId)
-      })
-
-      socket.on('sendNotification', (userId) => {
-        io.to(userId).emit('receiveMyNotifications', 'notify')
+      socket.on('sendNotification', (userId, notification) => {
+        io.to(userId).emit('receiveNotification', notification)
       })
 
       // auth functions

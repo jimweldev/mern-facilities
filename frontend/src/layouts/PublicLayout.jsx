@@ -5,7 +5,7 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 // components
 import Loading from '../components/Loading'
 
-const AuthLayout = () => {
+const PublicLayout = () => {
   return (
     <div className="container px-3 py-5">
       <Suspense fallback={<Loading />}>
@@ -15,4 +15,4 @@ const AuthLayout = () => {
   )
 }
 
-export default AuthLayout
+export default PublicLayout
