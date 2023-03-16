@@ -12,11 +12,13 @@ import PrivateLayout from './layouts/PrivateLayout'
 import PublicRoute from './routes/PublicRoute'
 import PrivateRoute from './routes/PrivateRoute'
 
-// auth pages
+// publice pages
 const Login = lazy(() => import('./pages/Auth/Login'))
 
-// home pages
+// private pages
 const Home = lazy(() => import('./pages/Home'))
+const FormExample = lazy(() => import('./pages/Home/FormExample'))
+const TableExample = lazy(() => import('./pages/Home/TableExample'))
 
 // redux
 import { LOGIN, LOGOUT } from './features/authUserSlice'
@@ -78,6 +80,8 @@ const App = () => {
       <Route element={<PrivateRoute authUser={authUser} />}>
         <Route element={<PrivateLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/form-example" element={<FormExample />} />
+          <Route path="/table-example" element={<TableExample />} />
         </Route>
       </Route>
     </Routes>

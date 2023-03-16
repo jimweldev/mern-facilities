@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 // libraries
 import axios from 'axios'
-import { useSelector } from 'react-redux'
 import { useQuery } from '@tanstack/react-query'
 
 // components
@@ -13,20 +12,7 @@ import TableFallback from '../../components/TableFallback'
 // hooks
 import useDebounce from '../../hooks/useDebounce'
 
-// socket
-import { socket } from '../../services/socket'
-
-const Home = () => {
-  const onlineUsers = useSelector((state) => state.onlineUsers.value)
-
-  const handleSendNotification = (userId, notification) => {
-    socket.emit('sendNotification', userId, notification)
-  }
-
-  const handleSendAnnouncement = (announcement) => {
-    socket.emit('sendAnnouncement', announcement)
-  }
-
+const TableExample = () => {
   const [search, setSearch] = useState('')
   const [limit, setLimit] = useState(10)
   const [sort, setSort] = useState('_id')
@@ -58,23 +44,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h1 className="h3 mb-0">Home</h1>
-
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            handleSendAnnouncement({
-              _id: Math.random() * 100,
-              title: 'Title',
-              description: 'Description',
-              createdAt: 'Mar 03, 2023',
-            })
-          }}
-        >
-          Announcement
-        </button>
-      </div>
+      <h1 className="h3 mb-3">Table Example</h1>
 
       <div className="card">
         <div className="card-body">
@@ -91,7 +61,6 @@ const Home = () => {
                 <th onClick={() => handleSort('_id')}>
                   <TableField column="ID" field="_id" sort={sort} />
                 </th>
-                <th>Status</th>
                 <th onClick={() => handleSort('emailAddress')}>
                   <TableField
                     column="Email Address"
@@ -99,7 +68,6 @@ const Home = () => {
                     sort={sort}
                   />
                 </th>
-                <th>Notify</th>
               </tr>
             </thead>
             <tbody>
@@ -111,35 +79,7 @@ const Home = () => {
                   return (
                     <tr key={user._id}>
                       <td>{user._id}</td>
-                      <td>
-                        {onlineUsers.some(
-                          (onlineUser) => onlineUser.userId === user._id
-                        ) ? (
-                          <span className="badge rounded-pill bg-success">
-                            Online
-                          </span>
-                        ) : (
-                          <span className="badge rounded-pill bg-secondary">
-                            Offline
-                          </span>
-                        )}
-                      </td>
                       <td>{user.emailAddress}</td>
-                      <td>
-                        <button
-                          className="btn btn-primary btn-sm"
-                          onClick={() => {
-                            handleSendNotification(user._id, {
-                              _id: Math.random() * 100,
-                              title: 'Title',
-                              description: 'Description',
-                              createdAt: 'Mar 03, 2023',
-                            })
-                          }}
-                        >
-                          Notify
-                        </button>
-                      </td>
                     </tr>
                   )
                 })}
@@ -157,4 +97,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default TableExample

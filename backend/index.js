@@ -77,7 +77,8 @@ mongoose
 
       // socket functions
       socket.on('sendAnnouncement', (announcement) => {
-        socket.broadcast.emit('receiveAnnouncement', announcement)
+        // socket.broadcast.emit('receiveAnnouncement', announcement)
+        io.emit('receiveAnnouncement', announcement)
       })
 
       socket.on('sendNotification', (userId, notification) => {

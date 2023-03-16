@@ -30,6 +30,8 @@ import {
   FiGrid,
 } from 'react-icons/fi'
 
+import { VscMegaphone } from 'react-icons/vsc'
+
 // variables
 import Avatar from '../assets/ayaka.jpg'
 
@@ -48,11 +50,11 @@ const PrivateLayout = () => {
     }
 
     const onReceiveNotification = (notification) => {
-      console.log(notification)
+      setNotifications((notifications) => [...notifications, notification])
     }
 
-    const onReceiveAnnouncement = (notification) => {
-      console.log(notification)
+    const onReceiveAnnouncement = (announcement) => {
+      setAnnouncements((announcements) => [...announcements, announcement])
     }
 
     socket.on('getOnlineUsers', onGetOnlineUsers)
@@ -81,6 +83,9 @@ const PrivateLayout = () => {
       })
   }
 
+  const [notifications, setNotifications] = useState([])
+  const [announcements, setAnnouncements] = useState([])
+
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
 
   return (
@@ -99,12 +104,6 @@ const PrivateLayout = () => {
 
             <li className="sidebar-item">
               <NavLink className="sidebar-link" to="/">
-                <FiPieChart className="feather align-middle" />
-                <span className="align-middle">Dashboard</span>
-              </NavLink>
-            </li>
-            <li className="sidebar-item">
-              <NavLink className="sidebar-link" to="/home">
                 <FiHome className="feather align-middle" />
                 <span className="align-middle">Home</span>
               </NavLink>
@@ -145,34 +144,54 @@ const PrivateLayout = () => {
                 >
                   <div className="position-relative">
                     <FiBell className="feather align-middle" />
-                    <span className="indicator">1</span>
+                    {notifications.length > 0 && (
+                      <span className="indicator">{notifications.length}</span>
+                    )}
                   </div>
                 </a>
                 <div
                   className="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
                   aria-labelledby="alertsDropdown"
                 >
-                  <div className="dropdown-menu-header">
-                    1 New Notifications
-                  </div>
-                  <div className="list-group">
-                    <a href="#" className="list-group-item">
-                      <div className="row align-items-center p-2">
-                        <div className="col-2 p-0">
-                          <div className="text-center">
-                            <FiAlertCircle className="text-danger display-6 mb-0" />
+                  <div className="dropdown-menu-header">Notifications</div>
+
+                  {/* has notifications */}
+                  {notifications.map((notification) => {
+                    return (
+                      <div className="list-group" key={notification._id}>
+                        <a href="#" className="list-group-item">
+                          <div className="row align-items-center p-2">
+                            <div className="col-2 p-0">
+                              <div className="text-center">
+                                <FiAlertCircle className="text-danger display-6 mb-0" />
+                              </div>
+                            </div>
+                            <div className="col-10">
+                              <div className="text-dark">
+                                {notification.title}
+                              </div>
+                              <div className="text-muted small mt-1">
+                                {notification.description}
+                              </div>
+                              <div className="text-muted small mt-1">
+                                {notification.createdAt}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-10">
-                          <div className="text-dark">Update completed</div>
-                          <div className="text-muted small mt-1">
-                            Restart server 12 to complete the update.
-                          </div>
-                          <div className="text-muted small mt-1">30m ago</div>
-                        </div>
+                        </a>
                       </div>
-                    </a>
-                  </div>
+                    )
+                  })}
+
+                  {/* no notifications */}
+                  {notifications.length === 0 && (
+                    <div class="list-group">
+                      <div class="list-group-item text-center">
+                        No notifications found.
+                      </div>
+                    </div>
+                  )}
+
                   <div className="dropdown-menu-footer">
                     <a href="#" className="text-muted">
                       Show all notifications
@@ -188,7 +207,10 @@ const PrivateLayout = () => {
                   data-bs-toggle="dropdown"
                 >
                   <div className="position-relative">
-                    <FiMessageSquare className="feather align-middle" />
+                    <VscMegaphone className="align-middle" />
+                    {announcements.length > 0 && (
+                      <span className="indicator">{announcements.length}</span>
+                    )}
                   </div>
                 </a>
                 <div
@@ -196,33 +218,48 @@ const PrivateLayout = () => {
                   aria-labelledby="messagesDropdown"
                 >
                   <div className="dropdown-menu-header">
-                    <div className="position-relative">1 New Messages</div>
+                    <div className="position-relative">Announcements</div>
                   </div>
-                  <div className="list-group">
-                    <a href="#" className="list-group-item">
-                      <div className="row align-items-center p-2">
-                        <div className="col-2 p-1">
-                          <div className="ratio ratio-1x1">
-                            <img
-                              src={Avatar}
-                              className="object-fit-cover rounded-circle border border-dark border-2"
-                              alt="Vanessa Tucker"
-                            />
+
+                  {/* has announcements */}
+                  {announcements.map((announcement) => {
+                    return (
+                      <div className="list-group" key={announcement._id}>
+                        <a href="#" className="list-group-item">
+                          <div className="row align-items-center p-2">
+                            <div className="col-2 p-0">
+                              <div className="text-center">
+                                <FiAlertCircle className="text-danger display-6 mb-0" />
+                              </div>
+                            </div>
+                            <div className="col-10">
+                              <div className="text-dark">
+                                {announcement.title}
+                              </div>
+                              <div className="text-muted small mt-1">
+                                {announcement.description}
+                              </div>
+                              <div className="text-muted small mt-1">
+                                {announcement.createdAt}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-10">
-                          <div className="text-dark">Vanessa Tucker</div>
-                          <div className="text-muted small mt-1">
-                            Nam pretium turpis et arcu. Duis arcu tortor.
-                          </div>
-                          <div className="text-muted small mt-1">15m ago</div>
-                        </div>
+                        </a>
                       </div>
-                    </a>
-                  </div>
+                    )
+                  })}
+
+                  {/* no announcements */}
+                  {announcements.length === 0 && (
+                    <div class="list-group">
+                      <div class="list-group-item text-center">
+                        No announcements found.
+                      </div>
+                    </div>
+                  )}
                   <div className="dropdown-menu-footer">
                     <a href="#" className="text-muted">
-                      Show all messages
+                      Show all announcements
                     </a>
                   </div>
                 </div>
@@ -246,11 +283,19 @@ const PrivateLayout = () => {
                     className="avatar object-fit-cover rounded-circle border border-dark border-2 me-2"
                     alt="Charles Hall"
                   />
-                  <span className="text-dark me-2">
-                    {authUser.user.emailAddress}
-                  </span>
                 </a>
-                <div className="dropdown-menu dropdown-menu-end">
+                <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                  <div className="p-3">
+                    <img
+                      src={Avatar}
+                      className="avatar object-fit-cover rounded-circle border border-dark border-2 me-2"
+                      alt={authUser.user.emailAddress}
+                    />
+                    <span className="text-dark me-2">
+                      {authUser.user.emailAddress}
+                    </span>
+                  </div>
+                  <hr className="m-2" />
                   <a className="dropdown-item" href="">
                     <FiUser className="feather align-middle me-2" />
                     Profile
