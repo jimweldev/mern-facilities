@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
 // libraries
-import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 // components
 import Table from '../../components/Table'

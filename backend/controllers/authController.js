@@ -6,13 +6,13 @@ const User = require('../models/userModel')
 
 const generateAccessToken = (_id) => {
   return jwt.sign({ _id: _id }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '1d',
+    expiresIn: process.env.ACCESS_TOKEN_EXPIRATION,
   })
 }
 
 const generateRefreshToken = (_id) => {
   return jwt.sign({ _id: _id }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: '30d',
+    expiresIn: process.env.REFRESH_TOKEN_EXPIRATION,
   })
 }
 

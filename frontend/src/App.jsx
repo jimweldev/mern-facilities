@@ -13,12 +13,19 @@ import PublicRoute from './routes/PublicRoute'
 import PrivateRoute from './routes/PrivateRoute'
 
 // publice pages
-const Login = lazy(() => import('./pages/Auth/Login'))
+const Login = lazy(() => import('./pages/Public/Login'))
 
 // private pages
-const Home = lazy(() => import('./pages/Home'))
-const FormExample = lazy(() => import('./pages/Home/FormExample'))
-const TableExample = lazy(() => import('./pages/Home/TableExample'))
+const Home = lazy(() => import('./pages/Private'))
+const Facilities = lazy(() => import('./pages/Private/Facilities'))
+const Offices = lazy(() => import('./pages/Private/Facilities/Offices'))
+const Floors = lazy(() => import('./pages/Private/Facilities/Offices/Floors'))
+const Rooms = lazy(() => import('./pages/Private/Facilities/Offices/Floors/Rooms'))
+const Spaces = lazy(() =>
+  import('./pages/Private/Facilities/Offices/Floors/Rooms/Spaces')
+)
+const FormExample = lazy(() => import('./pages/Private/FormExample'))
+const TableExample = lazy(() => import('./pages/Private/TableExample'))
 
 // redux
 import { LOGIN, LOGOUT } from './features/authUserSlice'
@@ -77,9 +84,15 @@ const App = () => {
         </Route>
       </Route>
 
+      {/* prettier-ignore */}
       <Route element={<PrivateRoute authUser={authUser} />}>
         <Route element={<PrivateLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/facilities" element={<Facilities />} />
+          <Route path="/facilities/offices" element={<Offices />} />
+          <Route path="/facilities/offices/:officeSlug" element={<Floors />} />
+          <Route path="/facilities/offices/:officeSlug/:floorSlug" element={<Rooms />} />
+          <Route path="/facilities/offices/:officeSlug/:floorSlug/:roomSlug" element={<Spaces />} />
           <Route path="/form-example" element={<FormExample />} />
           <Route path="/table-example" element={<TableExample />} />
         </Route>

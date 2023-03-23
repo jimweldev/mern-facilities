@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 // libraries
-import axios from 'axios';
-import { useFormik } from 'formik';
+import axios from 'axios'
+import { useFormik } from 'formik'
 
 const FormExample = () => {
   // login states
-  const [loginError, setLoginError] = useState(null);
-  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState(null)
+  const [isLoginLoading, setIsLoginLoading] = useState(false)
 
   // login function
   const handleLogin = async (values) => {
-    setLoginError(null);
-    setIsLoginLoading(true);
+    setLoginError(null)
+    setIsLoginLoading(true)
 
     axios
       .post('api/auth/login', values)
       .then((response) => {
-        dispatch(LOGIN(response.data));
+        dispatch(LOGIN(response.data))
       })
       .catch((error) => {
-        setLoginError(error.response.data.error);
+        setLoginError(error.response.data.error)
       })
       .finally(() => {
-        setIsLoginLoading(false);
-      });
-  };
+        setIsLoginLoading(false)
+      })
+  }
 
   // login form
   const formik = useFormik({
@@ -35,7 +35,7 @@ const FormExample = () => {
     },
     validate: loginValidate,
     onSubmit: handleLogin,
-  });
+  })
 
   return (
     <>
@@ -110,24 +110,24 @@ const FormExample = () => {
         </div>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default FormExample;
+export default FormExample
 
 // login validation
 const loginValidate = (values) => {
-  const errors = {};
+  const errors = {}
 
   // check if username is not empty
   if (!values.emailAddress) {
-    errors.emailAddress = 'Required';
+    errors.emailAddress = 'Required'
   }
 
   // check if password is not empty
   if (!values.password) {
-    errors.password = 'Required';
+    errors.password = 'Required'
   }
 
-  return errors;
-};
+  return errors
+}

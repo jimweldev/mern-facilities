@@ -108,16 +108,22 @@ const PrivateLayout = () => {
                 <span className="align-middle">Home</span>
               </NavLink>
             </li>
-            <li className="sidebar-item">
+            <li className="sidebar-item" hidden>
               <NavLink className="sidebar-link" to="/form-example">
                 <FiCheckSquare className="feather align-middle" />
                 <span className="align-middle">Form Example</span>
               </NavLink>
             </li>
-            <li className="sidebar-item">
+            <li className="sidebar-item" hidden>
               <NavLink className="sidebar-link" to="/table-example">
                 <FiGrid className="feather align-middle" />
                 <span className="align-middle">Table Example</span>
+              </NavLink>
+            </li>
+            <li className="sidebar-item">
+              <NavLink className="sidebar-link" to="/facilities">
+                <FiGrid className="feather align-middle" />
+                <span className="align-middle">Facilities</span>
               </NavLink>
             </li>
           </ul>
@@ -185,8 +191,8 @@ const PrivateLayout = () => {
 
                   {/* no notifications */}
                   {notifications.length === 0 && (
-                    <div class="list-group">
-                      <div class="list-group-item text-center">
+                    <div className="list-group">
+                      <div className="list-group-item text-center">
                         No notifications found.
                       </div>
                     </div>
@@ -251,8 +257,8 @@ const PrivateLayout = () => {
 
                   {/* no announcements */}
                   {announcements.length === 0 && (
-                    <div class="list-group">
-                      <div class="list-group-item text-center">
+                    <div className="list-group">
+                      <div className="list-group-item text-center">
                         No announcements found.
                       </div>
                     </div>
@@ -274,7 +280,7 @@ const PrivateLayout = () => {
                 </a>
 
                 <a
-                  className="nav-link dropdown-toggle d-none d-sm-inline-block"
+                  className="nav-link dropdown-sm-toggle d-none d-sm-inline-block"
                   href="#"
                   data-bs-toggle="dropdown"
                 >
