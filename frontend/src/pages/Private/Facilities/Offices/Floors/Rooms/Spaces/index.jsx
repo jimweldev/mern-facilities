@@ -345,9 +345,16 @@ const Spaces = () => {
                           formik.touched.rowNumber &&
                           'invalid'
                         }`}
+                        inputmode="numeric"
                         {...formik.getFieldProps('rowNumber')}
                       />
                     </div>
+
+                    {formik.errors.rowNumber && formik.touched.rowNumber && (
+                      <div className="form-text text-danger">
+                        {formik.errors.rowNumber}
+                      </div>
+                    )}
                   </div>
 
                   <div className="col">
@@ -360,9 +367,16 @@ const Spaces = () => {
                           formik.touched.seatNumber &&
                           'invalid'
                         }`}
+                        inputmode="numeric"
                         {...formik.getFieldProps('seatNumber')}
                       />
                     </div>
+
+                    {formik.errors.seatNumber && formik.touched.seatNumber && (
+                      <div className="form-text text-danger">
+                        {formik.errors.seatNumber}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -569,10 +583,20 @@ const addSpaceValidate = (values) => {
 
   if (values.spaceType === 'Seat') {
     // check if username is not empty
-    if (!values.rowNumber || !values.seatNumber) {
+    if (!values.rowNumber) {
       errors.rowNumber = 'Required'
+    }
+
+    if (!values.seatNumber) {
       errors.seatNumber = 'Required'
-      errors.label = 'Required'
+    }
+
+    if (!/^-?\d+$/.test(values.rowNumber)) {
+      errors.rowNumber = 'Row must me a number'
+    }
+
+    if (!/^-?\d+$/.test(values.seatNumber)) {
+      errors.seatNumber = 'Seat must me a number'
     }
   }
 
